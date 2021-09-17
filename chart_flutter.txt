@@ -1,0 +1,94 @@
+import 'package:flutter/material.dart';
+import 'package:suhu_tubuh/base_view.dart';
+import 'package:suhu_tubuh/viewmodel/base_model.dart';
+import 'package:suhu_tubuh/viewmodel/dashboard_model.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+
+class GraphicPasien extends StatefulWidget {
+  final String uid;
+  final String nama;
+
+  final bool animate;
+  const GraphicPasien({Key key, this.uid, this.nama, this.animate})
+      : super(key: key);
+  @override
+  _GraphicPasienState createState() => _GraphicPasienState();
+}
+
+class _GraphicPasienState extends State<GraphicPasien> {
+  List<charts.Series> seriesList;
+
+  static List<charts.Series<TimeSeriesSales, DateTime>> _createRandomData() {
+    final desktopSalesData = [
+      new TimeSeriesSales(new DateTime(2017, 10, 19), 36),
+      new TimeSeriesSales(new DateTime(2017, 10, 20), 37),
+      new TimeSeriesSales(new DateTime(2017, 10, 21), 38),
+      new TimeSeriesSales(new DateTime(2017, 10, 22), 40),
+    ];
+
+    return [
+      new charts.Series<TimeSeriesSales, DateTime>(
+        id: 'Sales',
+        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+        domainFn: (TimeSeriesSales sales, _) => sales.time,
+        measureFn: (TimeSeriesSales sales, _) => sales.sales,
+        data: desktopSalesData,
+      )
+    ];
+  }
+
+  barChart() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height / 1.2,
+      child: charts.TimeSeriesChart(
+        seriesList,
+        animate: true,
+        dateTimeFactory: const charts.LocalDateTimeFactory(),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    seriesList = _createRandomData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseView<DashBoardModel>(
+      // onModelReady: (model) =>
+      //     model.getSuhu( widget.uid).then((valz) {
+      //   for (var it in model.listSuhu) {
+      //     _chartData.add(SalesData("Tgl", DateTime.parse(it['tanggal']).day - 1,
+      //         double.parse(it['suhu'].toString())));
+      //   }
+      // }),
+      builder: (context, model, child) => Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Text(widget.nama),
+        ),
+        body: model.state == ViewState.Busy ?? ViewState.Idle
+            ? Center(child: CircularProgressIndicator())
+            : Container(
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Column(
+                    children: [barChart()],
+                  ),
+                ),
+              ),
+      ),
+    );
+  }
+}
+
+//model sync fusion
+
+class TimeSeriesSales {
+  final DateTime time;
+  final int sales;
+  TimeSeriesSales(this.time, this.sales);
+}

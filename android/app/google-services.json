@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "568139748818",
+    "firebase_url": "https://iot-humadity-temperature-check-default-rtdb.firebaseio.com",
+    "project_id": "iot-humadity-temperature-check",
+    "storage_bucket": "iot-humadity-temperature-check.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:568139748818:android:b31493206d237f0e13240b",
+        "android_client_info": {
+          "package_name": "com.ninja.suhu_tubuh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "568139748818-8mve1qrjgkbk85dopfgjmsaolrnoogjb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVvwMiT_2dbBQ7q8Ih4V0WbfYNBXmecOs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "568139748818-8mve1qrjgkbk85dopfgjmsaolrnoogjb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
