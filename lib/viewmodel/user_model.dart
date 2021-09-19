@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
@@ -15,8 +13,6 @@ class UserModel extends BaseModel {
 
   Future<bool> createUser(
       String name, String noHp, String alamat, String umur) async {
-    const _chars = '1234567890';
-    Random _rnd = Random();
     // String getRandomString(int length) =>
     //     String.fromCharCodes(Iterable.generate(
     //         length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
